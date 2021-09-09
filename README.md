@@ -4,9 +4,9 @@ Introduction of the following paper: [L. Zhao, C. Chen, J. Huang, "Deep Learning
 
 The paper proposes a low-cost document image editing algorithm through deep learning-based techniques and addresses the limitations of existing text editing algorithms for editing text on complex characters and complex backgrounds through a set of network design strategies. The practical results of document editing are as follows. The edited regions are boxed out in blue.
 
-<!-- <img src="/figures/1.png" width="300px"> -->
+<img src="https://github.com/chenlewis/Deep-Learning-based-Forgery-Attack-on-Document-Images/blob/main/figures/1.png" width="500px">
 
-![](./figures/1.png)
+<!-- ![](./figures/1.png) -->
 
 ## 1. Introduction
 Due to the COVID-19 pandemic, we have observed an unprecedented demand for online document authentication in the applications of e-commerce and e-government. Some important document images were uploaded to online platforms for various purposes. However, the content of document can be altered by some image editing tools or deep learning-based technologies. 
@@ -15,14 +15,18 @@ Recently, it has been demonstrated that characters and words in natural images c
 
 Authentication of hardcopy documents with digitally acquired document images is a forensic research topic with broad interest. To evaluate the security of existing digital document authentication systems under the forge-and-recapture attacks, a high-quality dataset containing forge-and-recapture document images is needed. To the best of our knowledge, no such dataset is currently available for evaluation. In this work, we build a deep learning-based document forgery network that can quickly generate a large number of forgery datasets for forensic experiments. A formal attack model with two scenarios is shown in the following figure.
 
-![](./figures/2.png)
+<img src="https://github.com/chenlewis/Deep-Learning-based-Forgery-Attack-on-Document-Images/blob/main/figures/2.png">
+
+<!-- ![](./figures/2.png) -->
 
 There are two representative forge-and-recapture attack scenarios. (a) The attacker scans his/her own identity document to obtain an identity document image and forges the document of a target identity to perform an impersonate attack. (b) The attacker steals an identity document image and forge his/her own document to obtain unauthorized access.
 
 ## 2. Method
 The document forgery attack is divided into the forgery (through the proposed deep network, ForgeNet) and recapturing steps. For the forgery process, the document image acquired by an imaging device is employed as input to the ForgeNet. It is divided into three regions, i.e., text region, image region, and background region (the areas that are not included in the first two categories). The background region is processed by the inverse halftoning module (IHNet) to remove the halftone dots in the printed document. The original content in the image region is replaced by the target image, and the resulting image is fed into the print-and-scan pre-compensation module (PCNet) and IHNet. It should be noted that the PCNet deliberately distorts the color and introduces halftone patterns in the edited region such that the discrepancies between the edited and background regions are compensated. The text region is subsequently forwarded to the text editing module (TENet), PCNet and IHNet. After processed by the ForgeNet, the three regions are stitched together to form a complete document image. Lastly, the forged document image is recaptured by cameras or scanners to finish the forge-and-recapture attack.
 
-![](./figures/3.png)
+<img src="https://github.com/chenlewis/Deep-Learning-based-Forgery-Attack-on-Document-Images/blob/main/figures/3.png">
+
+<!-- ![](./figures/3.png) -->
 
 For more details on network architecture, please refer to our [paper](https://arxiv.org/abs/2102.00653).
 
@@ -45,13 +49,17 @@ The following table is comparisons of SRNet [2] and different settings of TENet.
 
 The following figure is comparisons of SRNet and different configurations of the proposed TENet on synthetic character dataset. (a) Original images. (b) Edited by SRNet. (c) Edited by TENet without image differentiation (ID). (d) Edited by TENet without fine fusion (FF). (e) Edited by TENet without skeleton supervision (SS). (f) Edited by the proposed TENet. (g) Ground-truth. Differences between the results from TENet and the ground-truth are boxed out in blue. The SSIM metric computed from each edited document and the ground-truth is shown under each image from (b) to (f).
 
-![](./figures/4.png)
+<img src="https://github.com/chenlewis/Deep-Learning-based-Forgery-Attack-on-Document-Images/blob/main/figures/4.png">
+
+<!-- ![](./figures/4.png) -->
 
 The results look unrealistic in the absence of these three components. The importance of image differentiation, fine fusion, and skeleton supervision are reflected in the quality of characters, the background texture, and the character skeleton, respectively. Both quantitative analysis and visual examples clearly indicate the importance of the three components.
 
 We also choose Resident Identity Card for People’s Republic of China with a complex background as a target document. Identity card tampering is a more practical and challenging task to evaluate the performance of the proposed ForgeNet. More importantly, the Resident Identity Card is an important type of document with some off-the-shelf authentication algorithms. These algorithms can be employed as baselines to evaluate the effectiveness of our attack towards some state-of-the-art document authentication systems. As shown in the following figure, ForgeNet achieves a good forgery performance by fine-tuning with only one image, while the text and background in the image reconstructed by SRNet are distorted.
 
-![](./figures/5.png)
+<img src="https://github.com/chenlewis/Deep-Learning-based-Forgery-Attack-on-Document-Images/blob/main/figures/5.png" width="500px">
+
+<!-- ![](./figures/5.png) -->
 
 The forged identity card images obtained from ForgeNet are processed by the print-and-scan channel to demonstrate the threat posed by the forge-and-recapture attack. The popular off-the-shelf document authentication platforms in China includes [Baidu AI](https://ai.baidu.com/tech/ocr_cards/idcard), [Tencent AI](https://cloud.tencent.com/product/cardocr), and [MEGVII Face++ AI](https://www.faceplusplus.com.cn/idcard-recognition). We uploaded tampering results to these three state-of-the-art document authentication platforms for validation of the forgeandrecapture identity documents.
 
